@@ -5,7 +5,8 @@ import { ViewPropTypes, View } from 'react-native'
 class DivisibleView extends React.PureComponent {
    static propTypes = {
       ...ViewPropTypes,
-      divider: PropTypes.oneOfType([PropTypes.node, PropTypes.number])
+      divider: PropTypes.oneOfType([PropTypes.node, PropTypes.number]),
+      arrayDivision: PropTypes.bool
    }
 
    render() {
@@ -17,6 +18,8 @@ class DivisibleView extends React.PureComponent {
                   Array.isArray(this.props.children) ? this.props.children : [this.props.children]
                ).filter((child) =>
                   Array.isArray(child) || React.isValidElement(child)
+               ).reduce((children, child) =>
+                  this.props.arrayDivision && Array.isArray(child) ? [...children, ...child] : [...children, child], []
                ).reduce((children, child, i) =>
                   children.length === 0 ? [child] : [
                      ...children,
@@ -35,6 +38,11 @@ class DivisibleView extends React.PureComponent {
          <View style={{ width: divider, height: divider }} />
       )
    }
+}
+
+DivisibleView.defaultProps = {
+   divider: null,
+   arrayDivision: false
 }
 
 export { DivisibleView }

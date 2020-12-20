@@ -1,6 +1,6 @@
 {
   "name": "react-native-divisible-view",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A react native component that has dividers between children",
   "main": "index.js",
   "scripts": {
